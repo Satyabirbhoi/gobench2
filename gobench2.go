@@ -17,6 +17,7 @@ import (
 	"sync"
 	"sync/atomic"
 	"time"
+	"encoding/base64"
 
 	"github.com/valyala/fasthttp"
 )
@@ -343,10 +344,10 @@ func client(configuration *Configuration, result *Result, done *sync.WaitGroup) 
 						ResponseData:  resp.Body(),
 					}
 					decodedBody, err := base64.StdEncoding.DecodeString(responseData.Body)
-					responseJSON, _ := json.Marshal(decodedBody)
+					// responseJSON, _ := json.Marshal(decodedBody)
 
 					// Append the response to the file
-					_, err := configuration.responseFile.WriteString(string(decodedBody) + "\n")
+					_, err := configuration.responseFile.WriteString(decodedBody + "\n")
 					if err != nil {
 						fmt.Println(err)
 						continue
@@ -367,10 +368,10 @@ func client(configuration *Configuration, result *Result, done *sync.WaitGroup) 
 						ResponseData:  resp.Body(),
 					}
 					decodedBody, err := base64.StdEncoding.DecodeString(responseData.Body)
-					responseJSON, _ := json.Marshal(decodedBody)
+					// responseJSON, _ := json.Marshal(decodedBody)
 
 					// Append the response to the file
-					_, err := configuration.responseFile.WriteString(string(decodedBody) + "\n")
+					_, err := configuration.responseFile.WriteString(decodedBody + "\n")
 					if err != nil {
 						fmt.Println(err)
 						continue
