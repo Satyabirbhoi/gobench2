@@ -343,7 +343,7 @@ func client(configuration *Configuration, result *Result, done *sync.WaitGroup) 
 						StatusCode:    statusCode,
 						ResponseData:  resp.Body(),
 					}
-					decodedBody, err := base64.StdEncoding.DecodeString(responseData.Body)
+					decodedBody, err := base64.StdEncoding.DecodeString(responseData)
 					// responseJSON, _ := json.Marshal(decodedBody)
 
 					// Append the response to the file
@@ -367,7 +367,7 @@ func client(configuration *Configuration, result *Result, done *sync.WaitGroup) 
 						StatusCode:    statusCode,
 						ResponseData:  resp.Body(),
 					}
-					decodedBody, err := base64.StdEncoding.DecodeString(responseData.Body)
+					decodedBody, err := base64.StdEncoding.DecodeString(responseData)
 					// responseJSON, _ := json.Marshal(decodedBody)
 
 					// Append the response to the file
