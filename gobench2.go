@@ -339,15 +339,16 @@ func client(configuration *Configuration, result *Result, done *sync.WaitGroup) 
 				result.NetworkFailed++
 				if configuration.responseFile != nil {
 					encodedJson, err := json.Marshal(resp.Body())
+					decodedData, err := base64.StdEncoding.DecodeString(string(encodedJson))
 					responseData := ResponseData{
 						RequestNumber: result.Requests,
 						StatusCode:    statusCode,
-						ResponseData:  base64.StdEncoding.DecodeString(string(encodedJson)),
+						ResponseData:  decodedData,
 					}
 					responseJSON, _ := json.Marshal(responseData)
 
 					// Append the response to the file
-					_, err := configuration.responseFile.WriteString(string(responseJSON) + "\n")
+					_, err = configuration.responseFile.WriteString(string(responseJSON) + "\n")
 					if err != nil {
 						fmt.Println(err)
 						continue
@@ -363,16 +364,17 @@ func client(configuration *Configuration, result *Result, done *sync.WaitGroup) 
 				result.BadFailed++
 				if configuration.responseFile != nil {
 					encodedJson, err := json.Marshal(resp.Body())
+					decodedData, err := base64.StdEncoding.DecodeString(string(encodedJson))
 					responseData := ResponseData{
 						RequestNumber: result.Requests,
 						StatusCode:    statusCode,
-						ResponseData:  base64.StdEncoding.DecodeString(string(encodedJson)),
+						ResponseData:  decodedData,
 					}
 					// decodedBody, err := base64.StdEncoding.DecodeString(responseData)
 					responseJSON, _ := json.Marshal(responseData)
 
 					// Append the response to the file
-					_, err := configuration.responseFile.WriteString(string(responseJSON) + "\n")
+					_, err = configuration.responseFile.WriteString(string(responseJSON) + "\n")
 					if err != nil {
 						fmt.Println(err)
 						continue
